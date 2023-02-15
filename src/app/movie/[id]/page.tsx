@@ -8,6 +8,13 @@ interface Props {
   }
 }
 
+// Generate static content from params
+export async function generateStaticParams() {
+  const data = await trequest('movie/popular');
+  const paths = data.results.map((movie: any) => ({ id: movie.id.toString(), }))
+  return paths
+}
+
 export default async function MovieInformation({params}: Props ): Promise<JSX.Element> {
   const { id } = params
 
